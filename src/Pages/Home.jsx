@@ -1,9 +1,10 @@
+import CategorySection from "@/components/CategorySection";
 import React from "react";
 
 const Home = () => {
   return (
     <div>
-      <h1 className="text-4xl font-heading text-primary mb-4">
+       <h1 className="text-4xl font-heading text-primary mb-4">
         Elevate Your Brew
       </h1>
       <p className="font-heading p-4 rounded">
