@@ -1,0 +1,27 @@
+@import "tailwindcss";
+@tailwind utilities;
+
+:root {
+  --color-primary: #4B2E2E;
+  --color-secondary: #1C1C1C;
+  --color-beige: #F2EADF;
+  --color-soft-box: #D5D7C7;
+  --color-green-dark: #3E5C48;
+  --color-green-light: #83A184;
+  --color-tan: #C2BBA8;
+
+  --font-heading: 'Anton', sans-serif;
+  --font-body: 'Space Mono', monospace;
+}
+
+/* Optional: Global element styles using those variables */
+body {
+  font-family: var(--font-body);
+  background-color: var(--color-beige);
+  color: var(--color-secondary);
+}
+
+h1, h2, h3, h4, h5 {
+  font-family: var(--font-heading);
+  color: var(--color-primary);
+}
