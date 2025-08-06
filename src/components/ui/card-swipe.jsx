@@ -18,9 +18,8 @@ export const CardSwipe = ({
 }) => {
   const css = `
 .swiper {
-  width: 56%;
-  height: 660px;
-  padding-bottom: 50px;
+  width: 60%;
+  height: 620px;
 }
 
 .swiper-slide {

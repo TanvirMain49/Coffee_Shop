@@ -19,9 +19,9 @@ const CategorySection = () => {
   ];
 
   return (
-    <div className="relative bg-secondary py-24 flex items-center justify-center gap-10">
+    <div className="relative bg-secondary py-24 flex items-center justify-center gap-12">
       {/* text content */}
-      <div className="max-w-2xl w-full">
+      <div className="max-w-[600px] w-full">
         <RenderText
           title="Coffee"
           subTitle="Take a good coffee and have a good day"
@@ -46,16 +46,16 @@ const CategorySection = () => {
       </div>
 
       {/* Donut outline image */}
-      <div className="absolute top-[2%] left-[3%]">
-        <img src="/Donut.png" alt="Donut" className="w-40 h-40" />
+      <div className="absolute top-[1%] left-[3%]">
+        <img src="/Donut.png" alt="Donut" className="w-36 h-36" />
       </div>
       
       {/* Coffee outline image */}
-      <div className="absolute bottom-[8%] right-[46%]">
+      <div className="absolute bottom-[6%] right-[50%]">
         <img
           src="/Coffee-outline.png"
           alt="Coffee Outline"
-          className="w-60 h-60"
+          className="w-52 h-52"
         />
       </div>
     </div>
