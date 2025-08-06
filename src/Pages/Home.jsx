@@ -1,5 +1,6 @@
 import CategorySection from "@/components/CategorySection";
 import PairEnjoySection from "@/components/PairEnjoySection";
+import SipWorthSection from "@/components/SipWorthSection";
 import React from "react";
 
 const Home = () => {
@@ -7,6 +8,7 @@ const Home = () => {
     <div>
       <CategorySection />
       <PairEnjoySection />
+      <SipWorthSection />
     </div>
   );
 };
