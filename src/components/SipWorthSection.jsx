@@ -3,7 +3,7 @@ import React from "react";
 export default function SipWorthSection() {
   return (
     <section
-      className="relative flex flex-col items-center justify-center bg-[#3E5C48] px-4 py-32 md:py-52 md:mx-16 rounded-4xl overflow-hidden"
+      className="relative flex flex-col items-center justify-center bg-[#3E5C48] px-4 py-32 md:py-32 md:mx-16 rounded-4xl overflow-hidden mb-10"
       aria-labelledby="sips-heading"
     >
       {/* Heading */}
@@ -23,7 +23,7 @@ export default function SipWorthSection() {
       />
 
       {/* Quote Box */}
-      <div className="absolute bottom-4 md:bottom-[12%] right-1/2 translate-x-1/2 md:translate-x-0 md:right-[25%] bg-black/60 backdrop-blur p-6 md:p-8 rounded-2xl z-20 max-w-sm">
+      <div className="absolute bottom-4 md:bottom-[8%] right-1/2 translate-x-1/2 md:translate-x-0 md:right-[25%] bg-black/60 backdrop-blur p-6 md:p-8 rounded-2xl z-20 max-w-sm">
         <p className="text-beige text-sm md:text-base uppercase leading-relaxed">
           Because great coffee isn't just <br /> a drink – it's a shared <br />
           experience
