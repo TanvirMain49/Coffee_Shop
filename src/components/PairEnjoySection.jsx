@@ -13,7 +13,7 @@ const images = [
 
 export default function PairEnjoySection() {
   return (
-    <div className="py-36">
+    <div className="">
       <h1 className="text-secondary text-center font-semibold text-6xl uppercase tracking-wider mb-1">
         Brew.Pair.Enjoy
       </h1>

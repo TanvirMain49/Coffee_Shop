@@ -3,7 +3,7 @@ import navcofi from "../../public/Co-Fi-removebg-preview.png"
 
 const Navbar = () => {
   return (
-    <div className='flex justify-between p-6'>
+    <div className='flex justify-between p-6 bg-[#e6d8c6]'>
       <div className='flex gap-6'>
         {/* convert to <Link> later */}
         <p>MENU</p>

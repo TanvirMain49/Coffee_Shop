@@ -3,13 +3,13 @@ import React from "react";
 export default function SipWorthSection() {
   return (
     <section
-      className="relative flex flex-col items-center justify-center bg-[#3E5C48] px-4 py-32 md:py-32 md:mx-16 rounded-4xl overflow-hidden mb-10"
+      className="relative flex flex-col items-center justify-center bg-[#3E5C48] px-4 py-32 md:py-36 rounded-4xl overflow-hidden mb-10"
       aria-labelledby="sips-heading"
     >
       {/* Heading */}
       <h2
         id="sips-heading"
-        className="absolute text-left top-12 md:top-[10%] left-[36%] -translate-x-1/2 text-4xl md:text-8xl text-[#83A184] uppercase tracking-wide font-bold z-10"
+        className="absolute text-left top-12 md:top-[5%] left-[30%] -translate-x-1/2 text-4xl md:text-[100px] text-[#83A184] uppercase tracking-wide font-bold z-10"
       >
         Sips Worth <br className="hidden md:block" /> Sharing
       </h2>
@@ -18,7 +18,7 @@ export default function SipWorthSection() {
       <img
         src="/Sip.jpg"
         alt="A delicious cup of coffee"
-        className="w-[90%] max-w-[665px] h-auto md:h-[674px] object-cover rounded-3xl z-0"
+        className="w-full max-w-[765px] h-auto md:h-[774px] object-cover rounded-3xl z-0"
         loading="lazy"
       />
 

@@ -9,7 +9,7 @@ const productImages = [
 
 const BestProduct = () => {
     return (
-        <div className='p-6 mt-12 space-y-6'>
+        <div className='py-6 space-y-6'>
             <div className='flex flex-col items-center'>
                 <h1 className='text-6xl'>BEST PRODUCT</h1>
             </div>
