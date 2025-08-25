@@ -1,7 +1,7 @@
 import React from "react";
 const LoyaltyOffer = () => {
   return (
-    <section className="bg-[#C7B08C] py-16 px-6 flex flex-col items-center text-center relative overflow-hidden">
+    <section className="bg-tan py-16 px-6 flex flex-col items-center text-center relative overflow-hidden">
       {/* Cupcake */}
       {/* <img
         src={cupcake}
@@ -17,13 +17,13 @@ const LoyaltyOffer = () => {
       /> */}
 
       {/* Main Heading */}
-      <h2 className="text-5xl font-light">
+      <h2 className="text-7xl font-light">
         BUY 10 DRINKS,{" "}
         <span className="font-extrabold">GET 1 FREE</span>
       </h2>
 
       {/* Description */}
-      <p className="mt-4 max-w-2xl text-sm tracking-wide">
+      <p className="mt-4 max-w-2xl text-md tracking-wide">
         EVERY HANDCRAFTED DRINK EARNS YOU A BEAN. COLLECT 10 BEANS AND YOUR NEXT ONE'S FREE –
         BECAUSE LOYALTY SHOULD TASTE LIKE REWARD.
       </p>
