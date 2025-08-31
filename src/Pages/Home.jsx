@@ -1,6 +1,7 @@
 import Banner from "@/components/Banner";
 import BestProduct from "@/components/BestProduct";
 import CategorySection from "@/components/CategorySection";
+import CommonFrom from "@/components/Custom/CommonFrom";
 import LoyaltyOffer from "@/components/LoyaltyOffer";
 import PairEnjoySection from "@/components/PairEnjoySection";
 import SipWorthSection from "@/components/SipWorthSection";
@@ -24,7 +25,6 @@ const Home = () => {
         <PairEnjoySection />
         <SipWorthSection />
       </SectionWrapper>
-
       <LoyaltyOffer />
     </div>
   );

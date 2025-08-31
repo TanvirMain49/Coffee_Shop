@@ -31,12 +31,12 @@ export default function SipWorthSection() {
       </div>
 
       {/* Cookies Image Decoration */}
-      <img
+      {/* <img
         src="/public/cookies.png"
         alt="Cookies next to coffee"
         className="absolute w-40 h-40 md:w-[442px] md:h-[444px] -top-4 md:-top-[4%] right-4 md:right-[8%] z-10"
         loading="lazy"
-      />
+      /> */}
     </section>
   );
 }

@@ -1,4 +1,5 @@
 import React from "react";
+import { Button } from "./ui/button";
 const LoyaltyOffer = () => {
   return (
     <section className="bg-tan py-16 px-6 flex flex-col items-center text-center relative overflow-hidden">
@@ -29,9 +30,9 @@ const LoyaltyOffer = () => {
       </p>
 
       {/* Button */}
-      <button className="mt-6 px-8 py-3 bg-[#3B2A22] text-white rounded-md font-mono">
+      <Button className="mt-6 px-8 py-3 bg-[#3B2A22] text-white rounded-md font-mono">
         JOIN THE CLUB
-      </button>
+      </Button>
     </section>
   );
 };

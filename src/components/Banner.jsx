@@ -24,7 +24,7 @@ const Banner = () => {
       </div>
 
       {/* Banner Image */}
-      <div className="bg-[#f3eee4] p-4 rounded-2xl">
+      <div className="rounded-2xl">
         <MaskedDiv maskType="type-2" backgroundColor="#eee" size={1}>
           <img src={bannerPic} alt="Masked content" />
         </MaskedDiv>
