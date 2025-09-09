@@ -18,9 +18,8 @@ const Navbar = () => {
         <p>ACCOUNT</p>
         <Link to="/admin"> <p>DASHBOARD</p> </Link>
         <Link to="/cart"> <p>CART</p> </Link>
-
       </div>
-    </div>
+    </div> 
   )
 }
 
