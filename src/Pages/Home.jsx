@@ -14,7 +14,7 @@ const SectionWrapper = ({ children }) => (
 const Home = () => {
   return (
     <div className="space-y-32">
-        <Banner />
+      <Banner />
       <SectionWrapper>
         <BestProduct />
       </SectionWrapper>
