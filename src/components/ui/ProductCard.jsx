@@ -23,8 +23,8 @@ const ProductCard = ({ image, title, basePrice, description }) => {
             whileHover={{ scale: 1.05 }}
             // 👇 Click/Tap action (scale down)
 
-            transition={{ type: "spring", stiffness: 300 }}
-            className="bg-slate-100 hover:bg-[#e8e0d3] w-96 h-fit p-4 rounded-2xl space-y-4 shadow-sm"
+            transition={{ type: "spring", stiffness: 300, ease:"easeOut" }}
+            className="bg-beige hover:bg-[#e8e0d3] w-96 h-fit p-4 rounded-2xl space-y-4 shadow-sm border border-beige"
         >
             <figure>
                 <img className="rounded-md" src={image} alt={title} />
@@ -55,7 +55,7 @@ const ProductCard = ({ image, title, basePrice, description }) => {
                                 className={`w-1/4 py-2 rounded-md font-bold text-md font-mono transition 
                                     ${selectedSize === size
                                         ? 'bg-[#8e5137] text-white'
-                                        : 'bg-white border-2 border-[#d1b9af] text-[#a79085]'}`}
+                                        : 'bg-beige border-2 border-[#d1b9af] text-[#a79085]'}`}
                             >
                                 {size}
                             </button>
