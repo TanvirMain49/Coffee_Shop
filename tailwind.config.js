@@ -12,7 +12,7 @@ export default {
         beige: "#F2EADF",
         softBox: "#D5D7C7",
         greenDark: "#3E5C48",
-        greenLight: "#83A184",
+        greenLight: "#184227",
         tan: "#C2BBA8",
       },
     },
