@@ -7,7 +7,7 @@ export default {
         body: ["Space Mono", "monospace"],
       },
       colors: {
-        primary: "#4B2E2E",
+        primary: "#4B2E2A",
         secondary: "#1C1C1C",
         beige: "#F2EADF",
         softBox: "#D5D7C7",
