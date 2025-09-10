@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import useAuth from "@/hook/useAuth";
 
+
 const Navbar = () => {
   const { user, logout } = useAuth();
   const navigate = useNavigate();

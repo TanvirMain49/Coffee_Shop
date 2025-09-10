@@ -8,15 +8,11 @@ const ProductCard = ({ cardId, image, title, basePrice, description }) => {
         M: 1.2,
         L: 1.5,
     };
-
-    console.log(cardId)
-
     const [selectedSize, setSelectedSize] = useState('S');
     const price = (basePrice * sizes[selectedSize]).toFixed(2);
 
     // Split price into whole and decimal parts
     const [whole, decimal] = price.split(".");
-
     const handleCart = () => {
         // Get existing cart from localStorage
         const existingCart = JSON.parse(localStorage.getItem("cart")) || [];

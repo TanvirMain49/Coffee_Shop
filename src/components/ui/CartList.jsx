@@ -1,4 +1,3 @@
-
 import CartCard from './CartCard';
 
 const CartList = ({productList}) => {
