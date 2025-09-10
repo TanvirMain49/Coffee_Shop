@@ -2,7 +2,8 @@
 import React, { useState } from "react";
 import CommonForm from "@/components/Custom/CommonFrom";
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import useAuth from "@/hook/useAuth";
 
 export default function Login() {
   // ------------------------------
@@ -10,6 +11,8 @@ export default function Login() {
   // ------------------------------
   const [formData, setFormData] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const{userLogin} = useAuth();
+  const navigate = useNavigate();
 
   // ------------------------------
   // 🔹 Form Fields Configuration
@@ -65,17 +68,25 @@ export default function Login() {
   // ------------------------------
   // 🔹 Submit Handler
   // ------------------------------
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
     e.preventDefault();
 
-    setIsSubmitting(true);
-    console.log("Form submitted →", formData);
+    try {
+      setIsSubmitting(true);
 
-    // ⏳ Simulate API request (show loader for 2s)
-    setTimeout(() => {
+      await userLogin({
+        email: formData.email,
+        password: formData.password,
+      });
+
+      alert("login successful ✅");
+      navigate("/"); 
+    } catch (error) {
+      console.log(error)
+      alert(error);
+    } finally {
       setIsSubmitting(false);
-      console.log("Finished submitting ✅");
-    }, 2000);
+    }
   };
 
   // ------------------------------

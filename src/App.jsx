@@ -6,10 +6,12 @@ import Login from "./Pages/login";
 import Signup from "./Pages/Signup";
 import Profile from "./Pages/Profile";
 import Layout from "./components/Custom/Layout";
+import { AuthProvider } from "./Context/AuthProvider";
 
 function App() {
   return (
     <div>
+      <AuthProvider>
       <Routes>
         <Route
           path="/"
@@ -39,6 +41,7 @@ function App() {
           }
         />
       </Routes>
+      </AuthProvider>
     </div>
   );
 }
