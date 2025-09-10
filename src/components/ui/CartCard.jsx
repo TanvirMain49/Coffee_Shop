@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
 import * as motion from "motion/react-client";
 
@@ -16,7 +17,7 @@ const CartCard = ({ image, title, price }) => {
         <motion.div
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className="p-4 bg-white shadow-md rounded-lg w-full flex items-center space-x-4"
+            className="p-4 shadow-md rounded-lg w-full flex items-center space-x-4"
         >
             {/* Product Image */}
             <img

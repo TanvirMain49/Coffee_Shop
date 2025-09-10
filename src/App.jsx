@@ -1,3 +1,4 @@
+
 import { Route, Routes, useLocation,  } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Home from "./Pages/Home";
@@ -30,6 +31,7 @@ function App() {
           <Route path="orders" element={<DashOrder></DashOrder>} />
         </Route>
       </Routes>
+      </AuthProvider>
     </div>
   );
 }

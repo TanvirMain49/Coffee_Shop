@@ -1,3 +1,5 @@
+
+/* eslint-disable no-unused-vars */
 import React from "react";
 import {
   Select,
@@ -18,7 +20,6 @@ export default function CommonForm({
   isSubmitting = false,
   className = "grid grid-cols-1 gap-4 py-10 w-full max-w-5xl",
   submitLabel = "Log In",
-  submitButtonClassName = ""
 }) {
   const fadeInUp = {
     hidden: { y: 30, opacity: 0 },
@@ -127,5 +128,6 @@ export default function CommonForm({
         </Button>
       </motion.div>
     </form>
+
   );
 }

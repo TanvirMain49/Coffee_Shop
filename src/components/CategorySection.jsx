@@ -19,9 +19,9 @@ const CategorySection = () => {
   ];
 
   return (
-    <div className="relative bg-secondary py-24 flex items-center justify-center gap-12">
+    <div className="relative px-72 bg-secondary py-24 flex items-center justify-center gap-16">
       {/* text content */}
-      <div className="max-w-[600px] w-full">
+      <div className="max-w-[600px] mx-auto w-full">
         <RenderText
           title="Coffee"
           subTitle="Take a good coffee and have a good day"
