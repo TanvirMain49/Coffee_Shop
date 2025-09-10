@@ -26,7 +26,7 @@ const Banner = () => {
       {/* Banner Image */}
       <div className="rounded-2xl">
 
-        <img className="w-full rounded-xl h-[600px]" src={bannerPic} alt="Masked content" />
+        <img className="w-full rounded-lg h-[600px]" src={bannerPic} alt="Masked content" />
 
       </div>
 
