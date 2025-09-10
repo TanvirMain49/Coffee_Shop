@@ -2,7 +2,8 @@
 import React, { useState } from "react";
 import CommonForm from "@/components/Custom/CommonFrom";
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import useAuth from "@/hook/useAuth";
 
 export default function Signup() {
   // ------------------------------
@@ -10,40 +11,50 @@ export default function Signup() {
   // ------------------------------
   const [formData, setFormData] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
+   const { userRegister } = useAuth();
+   const navigate = useNavigate();
 
   // ------------------------------
   // Signup Form Fields
   // ------------------------------
-  const signupFields = [
-    {
-      name: "name",
-      label: "Full Name",
-      type: "text",
-      placeholder: "Enter your full name",
-      colspan: "col-span-6",
-    },
-    {
-      name: "email",
-      label: "Email",
-      type: "email",
-      placeholder: "Enter your email",
-      colspan: "col-span-6",
-    },
-    {
-      name: "password",
-      label: "Password",
-      type: "password",
-      placeholder: "Enter your password",
-      colspan: "col-span-6",
-    },
-    {
-      name: "confirmPassword",
-      label: "Confirm Password",
-      type: "password",
-      placeholder: "Confirm your password",
-      colspan: "col-span-6",
-    },
-  ];
+const signupFields = [
+  {
+    name: "name",
+    label: "Full Name",
+    type: "text",
+    placeholder: "Enter your full name",
+    colspan: "col-span-6",
+  },
+  {
+    name: "email",
+    label: "Email",
+    type: "email",
+    placeholder: "Enter email",
+    colspan: "col-span-6",
+  },
+  {
+    name: "password",
+    label: "Password",
+    type: "password",
+    placeholder: "Enter password",
+    colspan: "col-span-6",
+  },
+  {
+    name: "phone",
+    label: "Phone Number",
+    type: "text",
+    placeholder: "Enter phone number",
+    colspan: "col-span-3",
+  },
+  {
+    name: "address",
+    label: "Address",
+    type: "text",
+    placeholder: "Enter address",
+    colspan: "col-span-3",
+  },
+];
+
 
   // ------------------------------
   // Animation Variants
@@ -90,24 +101,35 @@ export default function Signup() {
   // ------------------------------
   // Form Submission Handler
   // ------------------------------
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
     e.preventDefault();
 
-    // Password match validation
-    if (formData.password !== formData.confirmPassword) {
-      alert("Passwords do not match!");
-      return;
+     try {
+      setIsSubmitting(true);
+
+      await userRegister({
+        name: formData.name,
+        email: formData.email,
+        password: formData.password,
+        address: formData.address,
+        phone_number: formData.phone
+      });
+
+      alert("Signup successful ✅");
+      navigate("/"); 
+    } catch (error) {
+      console.log(error)
+      alert(error);
+    } finally {
+      setIsSubmitting(false);
     }
 
-    setIsSubmitting(true);
-    console.log("Form submitted →", formData);
-
     // Simulate API request (loader visible for 2 seconds)
-    setTimeout(() => {
-      setIsSubmitting(false);
-      alert("Signup successful ✅");
-      console.log("Finished submitting");
-    }, 2000);
+    // setTimeout(() => {
+    //   setIsSubmitting(false);
+    //   alert("Signup successful ✅");
+    //   console.log("Finished submitting");
+    // }, 2000);
   };
 
   return (
@@ -149,7 +171,7 @@ export default function Signup() {
             <motion.div className="space-y-6">
               <CommonForm
                 formFields={signupFields}
-                className="grid grid-cols-1 gap-4"
+                className="grid grid-cols-6 gap-4"
                 formData={formData}
                 setFormData={setFormData}
                 handleSubmit={handleSubmit}

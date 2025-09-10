@@ -1,14 +1,15 @@
 import React, { useState } from 'react';
 import { ShoppingCart } from "lucide-react";
-import { Link } from 'react-router-dom';
 import * as motion from "motion/react-client"; // motion import
 
-const ProductCard = ({ image, title, basePrice, description }) => {
+const ProductCard = ({ cardId, image, title, basePrice, description }) => {
     const sizes = {
         S: 1,
         M: 1.2,
         L: 1.5,
     };
+
+    console.log(cardId)
 
     const [selectedSize, setSelectedSize] = useState('S');
     const price = (basePrice * sizes[selectedSize]).toFixed(2);
@@ -16,13 +17,31 @@ const ProductCard = ({ image, title, basePrice, description }) => {
     // Split price into whole and decimal parts
     const [whole, decimal] = price.split(".");
 
-    return (
-        // Motion wrapper for animation
-        <motion.div
-            // 👇 Hover action (scale up)
-            whileHover={{ scale: 1.05 }}
-            // 👇 Click/Tap action (scale down)
+    const handleCart = () => {
+        // Get existing cart from localStorage
+        const existingCart = JSON.parse(localStorage.getItem("cart")) || [];
 
+        // Create new item
+        const newItem = {
+            image,
+            title,
+            size: selectedSize,
+            price: parseFloat(price),
+            id: cardId,
+        };
+
+        // Add to cart array
+        const updatedCart = [...existingCart, newItem];
+
+        // Save back to localStorage
+        localStorage.setItem("cart", JSON.stringify(updatedCart));
+
+        alert(`${title} (${selectedSize}) added to cart!`);
+    };
+
+    return (
+        <motion.div
+            whileHover={{ scale: 1.05 }}
             transition={{ type: "spring", stiffness: 300, ease:"easeOut" }}
             className="bg-beige hover:bg-[#e8e0d3] w-96 h-fit p-4 rounded-2xl space-y-4 shadow-sm border border-beige"
         >
@@ -68,8 +87,11 @@ const ProductCard = ({ image, title, basePrice, description }) => {
                     <button className="w-3/4 px-8 py-3 bg-[#3B2A22] text-white rounded-md font-bold text-md font-mono">
                         Purchase
                     </button>
-                    <button className="w-1/4 flex items-center justify-center border-2 border-[#3B2A22] text-[#3B2A22] rounded-md font-bold text-md font-mono">
-                        <Link to="/cart"> <ShoppingCart size={22} /> </Link>
+                    <button 
+                        onClick={handleCart}
+                        className="w-1/4 flex items-center justify-center border-2 border-[#3B2A22] text-[#3B2A22] rounded-md font-bold text-md font-mono"
+                    >
+                        <ShoppingCart size={22} />
                     </button>
                 </div>
             </div>

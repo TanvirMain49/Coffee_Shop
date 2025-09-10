@@ -1,8 +1,11 @@
 import React from "react";
 import MaskedDiv from "./ui/masked-div";
 import bannerPic from "../../public/bannerpic.png";
+import useAuth from "@/hook/useAuth";
 
 const images = ["public/1.png", "public/2.png", "public/3.png", "public/4.png"];
+
+
 
 const ImageCard = ({ src, alt = "" }) => (
   <div className="rounded-2xl">
@@ -15,6 +18,9 @@ const ImageCard = ({ src, alt = "" }) => (
 );
 
 const Banner = () => {
+
+  const{user} = useAuth();
+console.log(user);
   return (
     <section className="relative bg-[#e6d8c6] px-44">
       {/* Text Section */}
