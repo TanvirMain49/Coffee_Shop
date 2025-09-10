@@ -37,13 +37,13 @@ export default function AddProductForm({ onAddProduct }) {
       label: "Price",
       type: "number",
       placeholder: "Enter price in USD",
-      colspan: "col-span-2",
+      colspan: "col-span-3",
     },
     {
       name: "created_at",
       label: "Created At",
       type: "date",
-      colspan: "col-span-2",
+      colspan: "col-span-3",
     },
   ];
 
@@ -77,6 +77,7 @@ export default function AddProductForm({ onAddProduct }) {
         setFormData={setFormData}
         handleSubmit={handleSubmit}
         submitLabel="Add Product" // ✅ Added submit button label here
+        submitButtonClassName="bg-green-dark font-semibold hover:bg-green-800 p-4 text-white" 
         className="grid grid-cols-6 gap-4 py-4"
       />
     </div>

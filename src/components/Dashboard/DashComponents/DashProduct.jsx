@@ -1,10 +1,11 @@
 "use client";
 
-
 import React, { useState } from "react";
-import { AnimatePresence, motion } from "framer-motion"; // ✅ fixed
+import { AnimatePresence, motion } from "framer-motion";
+import { Package } from "lucide-react"; // ✅ Added icon
 import AddProductForm from "../DashCustomUI/AddProductForm";
 import ProductList from "../DashCustomUI/ProductList";
+import DashboardHeader from "../DashCustomUI/DashboardHeader";
 
 // Fake initial products
 const initialProducts = [
@@ -35,8 +36,8 @@ const initialProducts = [
 ];
 
 const tabs = [
-  { label: "Add Product", id: "add" },
   { label: "Products List", id: "list" },
+  { label: "Add Product", id: "add" },
 ];
 
 export default function DashProduct() {
@@ -49,7 +50,6 @@ export default function DashProduct() {
 
   const handleEditProduct = (product) => {
     console.log("Edit product", product);
-    // Optional: implement inline edit or modal
   };
 
   const handleDeleteProduct = (product) => {
@@ -57,23 +57,24 @@ export default function DashProduct() {
   };
 
   return (
-    <div className="p-6 max-w-5xl mx-auto  bg-gradient-to-br from-slate-50 to-slate-100">
-      {/* Header */}
-      <h1 className="text-2xl font-bold mb-6 text-center">
-        Product Management
-      </h1>
+    <div className="p-6 max-w-5xl mx-auto bg-gradient-to-br from-slate-50 to-slate-100">
+      {/* ✅ Header */}
+      <DashboardHeader
+        icon={Package}
+        title="Product Management"
+        subtitle="Add new products and manage your coffee selection"
+      />
 
-      {/* Tabs */}
-      <nav className="flex gap-4 border-b  mb-6">
+      {/* ✅ Tabs */}
+      <nav className="flex gap-4 mb-6">
         {tabs.map((tab) => (
           <motion.button
             key={tab.id}
             onClick={() => setSelectedTab(tab)}
-            className={`px-4 py-2 rounded-t-lg font-medium ${
-              tab.id === selectedTab.id
-                ? "bg-white border border-b-0 shadow-sm"
+            className={`px-6 py-4 rounded-lg bg-green-dark text-white font-medium ${tab.id === selectedTab.id
+                ? "bg-green-light border border-b-0 shadow-sm"
                 : "bg-gray-100"
-            }`}
+              }`}
             layoutId={tab.id === selectedTab.id ? "active-tab" : undefined}
           >
             {tab.label}
@@ -81,7 +82,7 @@ export default function DashProduct() {
         ))}
       </nav>
 
-      {/* Tab content with shared layout animation */}
+      {/* ✅ Tab content with shared layout animation */}
       <div>
         <AnimatePresence mode="wait">
           {selectedTab.id === "add" && (

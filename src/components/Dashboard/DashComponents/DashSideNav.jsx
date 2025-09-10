@@ -15,7 +15,7 @@ const navItems = [
 
 const DashSideNav = () => {
   return (
-    <div className="w-1/6 bg-[#e6d8c6] flex flex-col justify-between p-4">
+    <div className="w-1/6 h-screen bg-[#e6d8c6] flex flex-col justify-between p-4">
       {/* Logo + Nav Links */}
       <nav className="flex flex-col space-y-4">
         <img className="w-24 h-24 object-contain mx-auto" src={logo} alt="Co-Fi Logo" />

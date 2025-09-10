@@ -5,6 +5,7 @@ import AddUserForm from "../DashCustomUI/AddUserForm";
 import DashModal from "../DashCustomUI/DashModal";
 import { useUsers } from "../DashHooks/useUsers";
 import { useDashModal } from "../DashHooks/useDashModal";
+import DashboardHeader from "../DashCustomUI/DashboardHeader";
 
 const initialUsers = [
     { id: 1, name: "John Doe", email: "john@example.com", role: "Admin", joinDate: "2024-01-15", status: "Active" },
@@ -27,24 +28,13 @@ const DashUser = () => {
         <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 p-4 sm:p-6 lg:p-8">
             <div className="max-w-4xl mx-auto">
                 {/* Header */}
-                <div className="mb-8 text-center">
-                    <div className="inline-flex items-center justify-center w-16 h-16 bg-primary rounded-full mb-4 shadow-lg">
-                        <Users className="w-8 h-8 text-white" />
-                    </div>
-                    <h1 className="text-3xl font-bold text-gray-900 mb-2">User Management</h1>
-                    <p className="text-gray-600">Manage users, roles, and permissions</p>
-                </div>
+                <DashboardHeader
+                    icon={Users}
+                    title="User Management"
+                    subtitle="Manage users, roles, and permissions"
+                />
 
-                {/* Add User Button */}
-                <div className="mb-6 flex justify-center">
-                    <button
-                        onClick={() => setShowAddForm(!showAddForm)}
-                        className="inline-flex items-center px-6 py-3 bg-green-dark hover:bg-green-light text-white rounded-lg  transition-all duration-200 transform hover:scale-105 hover:shadow-lg"
-                    >
-                        <Plus className="w-5 h-5 mr-2" />
-                        Add New User
-                    </button>
-                </div>
+                
 
                 {showAddForm && (
                     <AddUserForm

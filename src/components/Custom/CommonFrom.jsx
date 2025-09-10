@@ -18,6 +18,7 @@ export default function CommonForm({
   isSubmitting = false,
   className = "grid grid-cols-1 gap-4 py-10 w-full max-w-5xl",
   submitLabel = "Log In",
+  submitButtonClassName = ""
 }) {
   const fadeInUp = {
     hidden: { y: 30, opacity: 0 },
@@ -88,7 +89,8 @@ export default function CommonForm({
           type="submit"
           variant="primary"
           size="xl"
-          className="px-4 py-2 rounded-xl  font-medium shadow-md transition-colors duration-200"
+          // className="px-4 py-2 rounded-xl  font-medium shadow-md transition-colors duration-200"
+          className={`px-4 py-2 rounded-xl font-medium shadow-md transition-colors duration-200 ${submitButtonClassName}`}
           disabled={isSubmitting}
           whileHover={{ scale: isSubmitting ? 1 : 1.05 }}
           whileTap={{ scale: 0.95 }}
