@@ -1,5 +1,8 @@
+import React from "react";
 import { useState, useEffect } from "react";
 import useAxiosFetch from "@/hook/useAxiosFetch";
+import toast from "react-hot-toast";
+import axios from "axios";
 
 export const useUsers = () => {
   // fetch users from backend
@@ -43,10 +46,39 @@ export const useUsers = () => {
   };
 
   // Delete user
-  const handleDelete = (userId) => {
-    setUsers(users.filter(u => u.id !== userId));
-    animateCard(userId, 300);
-  };
+
+const handleDelete = async (userId) => {
+  // show loading state
+  const loader = toast.loading("Deleting user...");
+
+  try {
+    await axios.delete(`http://localhost:3000/admin/users/${userId}`);
+    setUsers((prev) => prev.filter((u) => u.id !== userId));
+
+    toast.success("User deleted successfully ✅", {
+      id: loader,
+      style: {
+        background: "#184227", // bg-primary
+        color: "#fff",
+        fontWeight: "bold",
+        borderRadius: "0.5rem",
+        padding: "1rem 1.5rem",
+      },
+    });
+  } catch (error) {
+    console.error("Error deleting user:", error);
+    toast.error("Failed to delete user ❌", {
+      id: loader,
+      style: {
+        background: "#7B1E1E", // red
+        color: "#fff",
+        fontWeight: "bold",
+        borderRadius: "0.5rem",
+        padding: "1rem 1.5rem",
+      },
+    });
+  }
+};
 
   return {
     users,
