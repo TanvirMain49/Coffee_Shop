@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import CommonForm from "../../Custom/CommonFrom";
+import axios from "axios";
+import toast from "react-hot-toast";
 
 export default function AddProductForm({ onAddProduct }) {
   const [formData, setFormData] = useState({
@@ -47,16 +49,20 @@ export default function AddProductForm({ onAddProduct }) {
     },
   ];
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  
+const handleSubmit = async (e) => {
+  e.preventDefault();
 
-    const newProduct = {
-      id: Date.now(),
-      ...formData,
+  try {
+    const response = await axios.post("http://localhost:3000/coffees", {
+      photo_url: formData.photo_url,
+      name: formData.name,
+      description: formData.description,
       price: parseFloat(formData.price || 0),
-    };
+    });
 
-    onAddProduct(newProduct);
+    // ✅ Use the real coffee object returned by backend
+    onAddProduct(response.data.coffee);
 
     // Reset form
     setFormData({
@@ -66,18 +72,47 @@ export default function AddProductForm({ onAddProduct }) {
       price: "",
       created_at: "",
     });
-  };
+
+    // Success toast
+    toast.success("Product added successfully ✅", {
+      duration: 4000,
+      position: "top-right",
+      style: {
+        background: "#184227", // green bg
+        color: "#ffffff",
+        fontWeight: "bold",
+        borderRadius: "0.5rem",
+        padding: "1rem 1.5rem",
+      },
+    });
+
+  } catch (error) {
+    console.error("Error adding product:", error.response?.data || error.message);
+
+    // Error toast
+    toast.error("Failed to add product ❌", {
+      duration: 4000,
+      position: "top-right",
+      style: {
+        background: "#7B1E1E", // red bg
+        color: "#ffffff",
+        fontWeight: "bold",
+        borderRadius: "0.5rem",
+        padding: "1rem 1.5rem",
+      },
+    });
+  }
+};
 
   return (
-    <div className="bg-white p-6 rounded-xl shadow-lg border border-gray-200 mb-6">
-      <h3 className="text-lg font-semibold mb-4">Add New Product</h3>
+    <div className="bg-beige p-6 rounded-xl shadow-lg border border-primary mb-6">
+      <h3 className="text-3xl font-semibold mb-4">Add New Product</h3>
       <CommonForm
         formFields={productFields}
         formData={formData}
         setFormData={setFormData}
         handleSubmit={handleSubmit}
         submitLabel="Add Product" // ✅ Added submit button label here
-        submitButtonClassName="bg-green-dark font-semibold hover:bg-green-800 p-4 text-white" 
         className="grid grid-cols-6 gap-4 py-4"
       />
     </div>

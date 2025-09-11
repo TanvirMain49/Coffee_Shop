@@ -1,4 +1,3 @@
-
 /* eslint-disable no-unused-vars */
 import React from "react";
 import {
@@ -81,17 +80,22 @@ export default function CommonForm({
   };
 
   return (
-    <form onSubmit={handleSubmit} className={className}>
-      {formFields.map(renderField)}
+    <>
+      <form id="commonForm" onSubmit={handleSubmit} className={className}>
+        {formFields.map(renderField)}
+      </form>
 
-      {/* ✅ Submit Button is now INSIDE the form */}
-      <motion.div variants={fadeInUp} className="col-span-full mt-6">
+      {/* Submit Button outside the form */}
+      <motion.div
+        variants={fadeInUp}
+        className="col-span-full mt-6 max-w-5xl mx-auto"
+      >
         <Button
           type="submit"
+          form="commonForm" // ✅ This links the button to the form
           variant="primary"
           size="xl"
-          // className="px-4 py-2 rounded-xl  font-medium shadow-md transition-colors duration-200"
-          className={`px-4 py-2 rounded-xl font-medium shadow-md transition-colors duration-200 ${submitButtonClassName}`}
+          className="px-4 py-2 rounded-xl font-medium shadow-md transition-colors duration-200 w-full"
           disabled={isSubmitting}
           whileHover={{ scale: isSubmitting ? 1 : 1.05 }}
           whileTap={{ scale: 0.95 }}
@@ -111,7 +115,7 @@ export default function CommonForm({
             ) : (
               <motion.div
                 key="loading"
-                className="flex items-center justify-center"
+                className="flex items-center justify-center w-full"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
@@ -127,7 +131,6 @@ export default function CommonForm({
           </AnimatePresence>
         </Button>
       </motion.div>
-    </form>
-
+    </>
   );
 }

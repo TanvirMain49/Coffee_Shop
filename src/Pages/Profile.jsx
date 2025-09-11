@@ -338,9 +338,9 @@ const Profile = () => {
                 count: orders?.filter((o) => o.status === "pending").length,
               },
               {
-                key: "accepted",
-                label: "Accepted",
-                count: orders?.filter((o) => o.status === "accepted").length,
+                key: "delivered",
+                label: "Delivered",
+                count: orders?.filter((o) => o.status === "delivered").length,
               },
               {
                 key: "declined",
@@ -402,7 +402,7 @@ const Profile = () => {
                           </div>
                           <div className="text-right">
                             <p className="text-4xl font-bold mb-1 text-[#184227]">
-                              ${item.price.toFixed(2)}
+                              ${item?.price?.toFixed(2) * item.quantity}
                             </p>
                             <p
                               className="text-lg font-medium"

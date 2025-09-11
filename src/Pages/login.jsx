@@ -4,6 +4,7 @@ import CommonForm from "@/components/Custom/CommonFrom";
 import { motion } from "framer-motion";
 import { Link, useNavigate } from "react-router-dom";
 import useAuth from "@/hook/useAuth";
+import toast from "react-hot-toast";
 
 export default function Login() {
   // ------------------------------
@@ -11,7 +12,7 @@ export default function Login() {
   // ------------------------------
   const [formData, setFormData] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const{userLogin} = useAuth();
+  const { userLogin } = useAuth();
   const navigate = useNavigate();
 
   // ------------------------------
@@ -47,28 +48,44 @@ export default function Login() {
 
   const slideInLeft = {
     hidden: { x: -100, opacity: 0 },
-    visible: { x: 0, opacity: 1, transition: { duration: 0.8, ease: "easeOut" } },
+    visible: {
+      x: 0,
+      opacity: 1,
+      transition: { duration: 0.8, ease: "easeOut" },
+    },
   };
 
   const slideInRight = {
     hidden: { x: 100, opacity: 0 },
-    visible: { x: 0, opacity: 1, transition: { duration: 0.8, ease: "easeOut" } },
+    visible: {
+      x: 0,
+      opacity: 1,
+      transition: { duration: 0.8, ease: "easeOut" },
+    },
   };
 
   const fadeInUp = {
     hidden: { y: 30, opacity: 0 },
-    visible: { y: 0, opacity: 1, transition: { duration: 0.6, ease: "easeOut" } },
+    visible: {
+      y: 0,
+      opacity: 1,
+      transition: { duration: 0.6, ease: "easeOut" },
+    },
   };
 
   const scaleIn = {
     hidden: { scale: 0, opacity: 0 },
-    visible: { scale: 1, opacity: 1, transition: { duration: 0.5, ease: "backOut" } },
+    visible: {
+      scale: 1,
+      opacity: 1,
+      transition: { duration: 0.5, ease: "backOut" },
+    },
   };
 
   // ------------------------------
   // 🔹 Submit Handler
   // ------------------------------
-  const handleSubmit = async(e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
@@ -79,10 +96,20 @@ export default function Login() {
         password: formData.password,
       });
 
-      alert("login successful ✅");
-      navigate("/"); 
+      toast.success("login successful ✅", {
+        duration: 4000, // 4 seconds
+        position: "top-right",
+        style: {
+          background: "#184227", // bg-primary color
+          color: "#ffffff", // white text
+          fontWeight: "bold",
+          borderRadius: "0.5rem", // rounded corners like ShadCN buttons
+          padding: "1rem 1.5rem",
+        },
+      });
+      navigate("/");
     } catch (error) {
-      console.log(error)
+      console.log(error);
       alert(error);
     } finally {
       setIsSubmitting(false);
@@ -101,7 +128,10 @@ export default function Login() {
         animate="visible"
       >
         {/* ---------------- Left Side ---------------- */}
-        <motion.div className="relative w-3/5 overflow-hidden" variants={slideInLeft}>
+        <motion.div
+          className="relative w-3/5 overflow-hidden"
+          variants={slideInLeft}
+        >
           <motion.img
             src="/Login.jpg"
             alt="Coffee"
@@ -132,7 +162,10 @@ export default function Login() {
           className="w-2/5 flex items-center justify-center p-8 bg-white relative"
           variants={slideInRight}
         >
-          <motion.div className="w-full max-w-md space-y-8" variants={containerVariants}>
+          <motion.div
+            className="w-full max-w-md space-y-8"
+            variants={containerVariants}
+          >
             {/* Logo */}
             <motion.div className="text-center" variants={scaleIn}>
               <motion.img
@@ -156,17 +189,20 @@ export default function Login() {
 
             {/* Form */}
             <motion.div className="space-y-6" variants={fadeInUp}>
-                <CommonForm
-                  formFields={loginFields}
-                  className="grid grid-cols-1 gap-4"
-                  formData={formData}
-                  setFormData={setFormData}
-                  handleSubmit={handleSubmit}
-                  isSubmitting={isSubmitting}
-                />
+              <CommonForm
+                formFields={loginFields}
+                className="grid grid-cols-1 gap-4"
+                formData={formData}
+                setFormData={setFormData}
+                handleSubmit={handleSubmit}
+                isSubmitting={isSubmitting}
+              />
 
               {/* Remember Me & Forgot Password */}
-              <motion.div className="flex items-center justify-between text-sm" variants={fadeInUp}>
+              <motion.div
+                className="flex items-center justify-between text-sm"
+                variants={fadeInUp}
+              >
                 <motion.label
                   className="flex items-center cursor-pointer"
                   whileHover={{ scale: 1.05 }}
@@ -200,15 +236,21 @@ export default function Login() {
               </motion.div>
 
               {/* Sign Up */}
-              <motion.p className="text-center text-gray-600" variants={fadeInUp}>
+              <motion.p
+                className="text-center text-gray-600"
+                variants={fadeInUp}
+              >
                 New Coffee lover?{" "}
                 <Link to="/signup">
-                <motion.span
-                  className="text-primary font-semibold"
-                  whileHover={{ color: "#4b2e2e", textDecoration: "underline" }}
-                >
-                  Create Account
-                </motion.span>
+                  <motion.span
+                    className="text-primary font-semibold"
+                    whileHover={{
+                      color: "#4b2e2e",
+                      textDecoration: "underline",
+                    }}
+                  >
+                    Create Account
+                  </motion.span>
                 </Link>
               </motion.p>
             </motion.div>

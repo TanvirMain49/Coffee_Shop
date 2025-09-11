@@ -4,6 +4,15 @@ import CommonForm from "@/components/Custom/CommonFrom";
 import { motion } from "framer-motion";
 import { Link, useNavigate } from "react-router-dom";
 import useAuth from "@/hook/useAuth";
+import {
+  DialogHeader,
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
+import toast from "react-hot-toast";
 
 export default function Signup() {
   // ------------------------------
@@ -11,50 +20,50 @@ export default function Signup() {
   // ------------------------------
   const [formData, setFormData] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
-   const { userRegister } = useAuth();
-   const navigate = useNavigate();
+  const { userRegister } = useAuth();
+  const [showModal, setShowModal] = useState(false);
+  const navigate = useNavigate();
 
   // ------------------------------
   // Signup Form Fields
   // ------------------------------
-const signupFields = [
-  {
-    name: "name",
-    label: "Full Name",
-    type: "text",
-    placeholder: "Enter your full name",
-    colspan: "col-span-6",
-  },
-  {
-    name: "email",
-    label: "Email",
-    type: "email",
-    placeholder: "Enter email",
-    colspan: "col-span-6",
-  },
-  {
-    name: "password",
-    label: "Password",
-    type: "password",
-    placeholder: "Enter password",
-    colspan: "col-span-6",
-  },
-  {
-    name: "phone",
-    label: "Phone Number",
-    type: "text",
-    placeholder: "Enter phone number",
-    colspan: "col-span-3",
-  },
-  {
-    name: "address",
-    label: "Address",
-    type: "text",
-    placeholder: "Enter address",
-    colspan: "col-span-3",
-  },
-];
-
+  const signupFields = [
+    {
+      name: "name",
+      label: "Full Name",
+      type: "text",
+      placeholder: "Enter your full name",
+      colspan: "col-span-6",
+    },
+    {
+      name: "email",
+      label: "Email",
+      type: "email",
+      placeholder: "Enter email",
+      colspan: "col-span-6",
+    },
+    {
+      name: "password",
+      label: "Password",
+      type: "password",
+      placeholder: "Enter password",
+      colspan: "col-span-6",
+    },
+    {
+      name: "phone",
+      label: "Phone Number",
+      type: "text",
+      placeholder: "Enter phone number",
+      colspan: "col-span-3",
+    },
+    {
+      name: "address",
+      label: "Address",
+      type: "text",
+      placeholder: "Enter address",
+      colspan: "col-span-3",
+    },
+  ];
 
   // ------------------------------
   // Animation Variants
@@ -95,16 +104,20 @@ const signupFields = [
   };
   const scaleIn = {
     hidden: { scale: 0, opacity: 0 },
-    visible: { scale: 1, opacity: 1, transition: { duration: 0.5, ease: "backOut" } },
+    visible: {
+      scale: 1,
+      opacity: 1,
+      transition: { duration: 0.5, ease: "backOut" },
+    },
   };
 
   // ------------------------------
   // Form Submission Handler
   // ------------------------------
-  const handleSubmit = async(e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-     try {
+    try {
       setIsSubmitting(true);
 
       await userRegister({
@@ -112,24 +125,28 @@ const signupFields = [
         email: formData.email,
         password: formData.password,
         address: formData.address,
-        phone_number: formData.phone
+        phone_number: formData.phone,
+      });
+      toast.success("Signup successful ✅", {
+        duration: 4000, // 4 seconds
+        position: "top-right",
+        style: {
+          background: "#184227", // bg-primary color
+          color: "#ffffff", // white text
+          fontWeight: "bold",
+          borderRadius: "0.5rem", // rounded corners like ShadCN buttons
+          padding: "1rem 1.5rem",
+        },
       });
 
-      alert("Signup successful ✅");
-      navigate("/"); 
+      // alert("Signup successful ✅");
+      setTimeout(() => navigate("/"), 1000);
     } catch (error) {
-      console.log(error)
+      console.log(error);
       alert(error);
     } finally {
       setIsSubmitting(false);
     }
-
-    // Simulate API request (loader visible for 2 seconds)
-    // setTimeout(() => {
-    //   setIsSubmitting(false);
-    //   alert("Signup successful ✅");
-    //   console.log("Finished submitting");
-    // }, 2000);
   };
 
   return (

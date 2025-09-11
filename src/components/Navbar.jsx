@@ -32,7 +32,7 @@ const Navbar = () => {
       {/* Right Links */}
       <div className="flex gap-4 items-center">
         {/* Always visible links */}
-        <Link to="/admin">
+        <Link to="/admin/users">
           <p>DASHBOARD</p>
         </Link>
         <Link to="/cart">

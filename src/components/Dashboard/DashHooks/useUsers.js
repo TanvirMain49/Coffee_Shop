@@ -1,10 +1,22 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import useAxiosFetch from "@/hook/useAxiosFetch";
 
-export const useUsers = (initialUsers) => {
-  const [users, setUsers] = useState(initialUsers);
+export const useUsers = () => {
+  // fetch users from backend
+  const { data, loading, error } = useAxiosFetch("http://localhost:3000/admin/users");
+
+  const [users, setUsers] = useState([]);
   const [editingUser, setEditingUser] = useState(null);
   const [animatingCards, setAnimatingCards] = useState(new Set());
 
+  // When `data` changes, sync with local state
+  useEffect(() => {
+    if (data) {
+      setUsers(data); // assuming backend returns [{id, name, ...}]
+    }
+  }, [data]);
+
+  // Animation logic
   const animateCard = (id, duration = 600) => {
     setAnimatingCards(prev => new Set([...prev, id]));
     setTimeout(() => {
@@ -16,25 +28,21 @@ export const useUsers = (initialUsers) => {
     }, duration);
   };
 
+  // Add user (still call backend manually if needed)
   const handleAddUser = (newUser) => {
-    const user = {
-      id: Math.max(...users.map(u => u.id)) + 1,
-      ...newUser,
-      joinDate: new Date().toISOString().split("T")[0],
-      status: "Active"
-    };
-    setUsers([user, ...users]);
-    animateCard(user.id);
+    setUsers([newUser, ...users]);
+    animateCard(newUser.id);
   };
 
-  const handleEdit = (user) => setEditingUser(user);
-
+  // Edit user
   const handleSaveEdit = (updatedUser) => {
-    setUsers(users.map(u => u.id === updatedUser.id ? updatedUser : u));
+    console.log("handleAddUser",updatedUser);
+    setUsers(users.map(u => (u.id === updatedUser.id ? updatedUser : u)));
     setEditingUser(null);
     animateCard(updatedUser.id);
   };
 
+  // Delete user
   const handleDelete = (userId) => {
     setUsers(users.filter(u => u.id !== userId));
     animateCard(userId, 300);
@@ -42,10 +50,12 @@ export const useUsers = (initialUsers) => {
 
   return {
     users,
+    loading,
+    error,
     editingUser,
     animatingCards,
     handleAddUser,
-    handleEdit,
+    handleEdit: setEditingUser,
     handleSaveEdit,
     handleDelete,
     setEditingUser

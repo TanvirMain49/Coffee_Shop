@@ -1,11 +1,16 @@
+/* eslint-disable no-unused-vars */
 "use client";
 
 import React, { useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
 import { Package } from "lucide-react"; // ✅ Added icon
 import AddProductForm from "../DashCustomUI/AddProductForm";
 import ProductList from "../DashCustomUI/ProductList";
 import DashboardHeader from "../DashCustomUI/DashboardHeader";
+import useAxiosFetch from "@/hook/useAxiosFetch";
+import Loader from "@/components/Custom/loader";
+import { AnimatePresence, motion } from "framer-motion";
+import toast from "react-hot-toast";
+import axios from "axios";
 
 // Fake initial products
 const initialProducts = [
@@ -41,8 +46,13 @@ const tabs = [
 ];
 
 export default function DashProduct() {
+  const {
+    data: products,
+    loading,
+    error,
+    setData: setProducts,
+  } = useAxiosFetch("http://localhost:3000/admin/coffees");
   const [selectedTab, setSelectedTab] = useState(tabs[0]);
-  const [products, setProducts] = useState(initialProducts);
 
   const handleAddProduct = (newProduct) => {
     setProducts((prev) => [...prev, newProduct]);
@@ -52,29 +62,100 @@ export default function DashProduct() {
     console.log("Edit product", product);
   };
 
-  const handleDeleteProduct = (product) => {
-    setProducts((prev) => prev.filter((p) => p.id !== product.id));
+  const handleDeleteProduct = async (product) => {
+    // Create a promise-based toast for confirmation
+    const confirmDelete = await new Promise((resolve) => {
+      const toastId = toast(
+        (t) => (
+          <div className="flex flex-col gap-4 p-4 rounded-lg text-black shadow-md">
+            <span className="font-medium text-lg">
+              Are you sure you want to delete "{product.name}"?
+            </span>
+            <div className="flex gap-2 justify-end mt-2">
+              <button
+                className="px-4 py-2 bg-red-600 hover:bg-red-700 transition text-white rounded-md font-bold"
+                onClick={() => {
+                  resolve(true);
+                  toast.dismiss(t.id);
+                }}
+              >
+                OK
+              </button>
+              <button
+                className="px-4 py-2 bg-gray-500 hover:bg-gray-300 transition text-white rounded-md font-bold"
+                onClick={() => {
+                  resolve(false);
+                  toast.dismiss(t.id);
+                }}
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        ),
+        {
+          duration: Infinity, // Keeps toast visible until user clicks
+        }
+      );
+    });
+
+    if (!confirmDelete) return;
+
+    // Show loading toast
+    const loadingToastId = toast.loading("Deleting coffee...");
+
+    try {
+      await axios.delete(`http://localhost:3000/coffees/${product.id}`);
+      setProducts((prev) => prev.filter((p) => p.id !== product.id));
+
+      toast.success("Coffee deleted successfully ✅", {
+        id: loadingToastId, // Replace the loading toast
+        duration: 4000,
+        style: {
+          background: "#184227",
+          color: "#fff",
+          fontWeight: "bold",
+          borderRadius: "0.5rem",
+          padding: "1rem 1.5rem",
+        },
+      });
+    } catch (error) {
+      console.error("Error deleting coffee:", error);
+
+      toast.error("Failed to delete coffee ❌", {
+        id: loadingToastId, // Replace the loading toast
+        duration: 4000,
+        style: {
+          background: "#7B1E1E",
+          color: "#fff",
+          fontWeight: "bold",
+          borderRadius: "0.5rem",
+          padding: "1rem 1.5rem",
+        },
+      });
+    }
   };
 
   return (
-    <div className="p-6 max-w-5xl mx-auto bg-gradient-to-br from-slate-50 to-slate-100">
-      {/* ✅ Header */}
+    <div className="p-6 max-w-5xl mx-auto">
+      {/* Header */}
       <DashboardHeader
         icon={Package}
         title="Product Management"
         subtitle="Add new products and manage your coffee selection"
       />
 
-      {/* ✅ Tabs */}
+      {/* Tabs */}
       <nav className="flex gap-4 mb-6">
         {tabs.map((tab) => (
           <motion.button
             key={tab.id}
             onClick={() => setSelectedTab(tab)}
-            className={`px-6 py-4 rounded-lg bg-green-dark text-white font-medium ${tab.id === selectedTab.id
-                ? "bg-green-light border border-b-0 shadow-sm"
-                : "bg-gray-100"
-              }`}
+            className={`px-6 py-4 rounded-lg bg-beige text-black font-medium ${
+              tab.id === selectedTab.id
+                ? "bg-primary text-white border border-b-0 shadow-sm"
+                : "border border-primary"
+            }`}
             layoutId={tab.id === selectedTab.id ? "active-tab" : undefined}
           >
             {tab.label}
@@ -82,10 +163,13 @@ export default function DashProduct() {
         ))}
       </nav>
 
-      {/* ✅ Tab content with shared layout animation */}
+      {/* Tab content */}
       <div>
         <AnimatePresence mode="wait">
-          {selectedTab.id === "add" && (
+          {loading ? (
+            // ✅ Loader
+            <Loader />
+          ) : selectedTab.id === "add" ? (
             <motion.div
               key="add"
               initial={{ opacity: 0, y: 10 }}
@@ -95,9 +179,7 @@ export default function DashProduct() {
             >
               <AddProductForm onAddProduct={handleAddProduct} />
             </motion.div>
-          )}
-
-          {selectedTab.id === "list" && (
+          ) : (
             <motion.div
               key="list"
               initial={{ opacity: 0, y: 10 }}

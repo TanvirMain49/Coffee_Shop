@@ -1,16 +1,26 @@
-import React from 'react';
-import pfp from "../../../../public/pfp.jpeg";
+import React from "react";
 
-const SmallAdminPfp = () => {
-    return (
-        <div className='flex bg-white items-center justify-between p-4 rounded-xl'>
-            <div>
-                <h3>Mahinul Tanvir Mahin</h3>
-                <p>Admin</p>
-            </div>
-            <img className='size-18 rounded-full border-4 p-0.5 border-green-400' src={pfp} alt="" />
-        </div>
-    );
+const SmallAdminPfp = ({ fullName = "Mahinul Tanvir Mahin", role = "Admin" }) => {
+  // Get initials from full name
+  const getInitials = (name) => {
+    const namesArray = name.split(" ");
+    const initials = namesArray.map((n) => n[0].toUpperCase()).join("");
+    return initials.slice(0, 2); // Use first 2 letters
+  };
+
+  return (
+    <div className="flex bg-beige items-center justify-between p-2 rounded-xl">
+      <div>
+        <h3>{fullName}</h3>
+        <p>{role}</p>
+      </div>
+      <div
+        className="flex items-center justify-center size-18 rounded-full border-4 border-green-light text-white font-bold bg-primary"
+      >
+        {getInitials(fullName)}
+      </div>
+    </div>
+  );
 };
 
 export default SmallAdminPfp;
