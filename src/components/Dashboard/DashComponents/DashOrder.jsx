@@ -9,45 +9,6 @@ import OrderCard from "../DashCustomUI/OrderCard";
 import useAxiosFetch from "@/hook/useAxiosFetch";
 import Loader from "@/components/Custom/loader";
 
-// Sample fake order data
-const initialOrders = [
-  {
-    id: 1,
-    customer: "John Doe",
-    total: 12.5,
-    status: "pending",
-    items: [
-      { name: "Iced Black Coffee with Lime", quantity: 2 },
-      { name: "Cinnamon Coffee", quantity: 1 },
-    ],
-  },
-  {
-    id: 2,
-    customer: "Jane Smith",
-    total: 8.0,
-    status: "delivered",
-    items: [{ name: "Iced White Coffee with Oreo", quantity: 1 }],
-  },
-  {
-    id: 3,
-    customer: "Mike Johnson",
-    total: 5.5,
-    status: "failed",
-    items: [{ name: "Cinnamon Coffee", quantity: 1 }],
-  },
-  {
-    id: 4,
-    customer: "Sarah Wilson",
-    total: 15.0,
-    status: "pending",
-    items: [
-      { name: "Iced Black Coffee with Lime", quantity: 1 },
-      { name: "Iced White Coffee with Oreo", quantity: 2 },
-      { name: "Cinnamon Coffee", quantity: 1 },
-    ],
-  },
-];
-
 const tabs = [
   { id: "pending", label: "Pending", icon: Truck },
   { id: "delivered", label: "Delivered", icon: CheckCircle },

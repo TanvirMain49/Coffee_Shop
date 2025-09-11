@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { ShoppingCart } from "lucide-react";
 import * as motion from "motion/react-client";
 import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 const ProductCard = ({ cardId, image, title, basePrice, description }) => {
   const sizes = {
@@ -16,50 +17,65 @@ const ProductCard = ({ cardId, image, title, basePrice, description }) => {
 
   // Split price into whole and decimal parts
   const [whole, decimal] = price.split(".");
-  const handleCart = () => {
-    // Get existing cart from localStorage
-    const existingCart = JSON.parse(localStorage.getItem("cart")) || [];
-
-    // Create new item
-    const newItem = {
-      image,
-      title,
-      size: selectedSize,
-      price: parseFloat(price),
-      id: cardId,
-    };
-
-    // Add to cart array
-    const updatedCart = [...existingCart, newItem];
-
-    // Save back to localStorage
-    localStorage.setItem("cart", JSON.stringify(updatedCart));
-
-    alert(`${title} (${selectedSize}) added to cart!`);
-  };
-
-const handlePurchase = () => {
-  // Get existing cart from localStorage
+const handleCart = () => {
   const existingCart = JSON.parse(localStorage.getItem("cart")) || [];
 
-  // Create new item
   const newItem = {
     image,
     title,
     size: selectedSize,
     price: parseFloat(price),
     id: cardId,
-    quantity: 1, // default quantity
   };
 
-  // Add to cart array
   const updatedCart = [...existingCart, newItem];
-
-  // Save back to localStorage
   localStorage.setItem("cart", JSON.stringify(updatedCart));
 
-  // Redirect to /cart page
-  navigate("/cart");
+  // ✅ Show toast instead of alert
+  toast.success(`${title} (${selectedSize}) added to cart!`, {
+    duration: 4000,
+    position: "top-right",
+    style: {
+      background: "#184227", // bg-primary
+      color: "#ffffff",
+      fontWeight: "bold",
+      borderRadius: "0.5rem",
+      padding: "1rem 1.5rem",
+    },
+  });
+};
+
+const handlePurchase = () => {
+  const existingCart = JSON.parse(localStorage.getItem("cart")) || [];
+
+  const newItem = {
+    image,
+    title,
+    size: selectedSize,
+    price: parseFloat(price),
+    id: cardId,
+    quantity: 1,
+  };
+
+  const updatedCart = [...existingCart, newItem];
+  localStorage.setItem("cart", JSON.stringify(updatedCart));
+
+  toast.success(`${title} (${selectedSize}) added to cart! Redirecting...`, {
+    duration: 4000,
+    position: "top-right",
+    style: {
+      background: "#184227", // bg-primary
+      color: "#ffffff",
+      fontWeight: "bold",
+      borderRadius: "0.5rem",
+      padding: "1rem 1.5rem",
+    },
+  });
+
+  // Redirect after a short delay to allow toast to show
+  setTimeout(() => {
+    navigate("/cart");
+  }, 500);
 };
 
   return (
