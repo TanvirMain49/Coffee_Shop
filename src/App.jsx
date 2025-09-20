@@ -1,5 +1,4 @@
-
-import { Route, Routes, useLocation,  } from "react-router-dom";
+import { Route, Routes, useLocation } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Home from "./Pages/Home";
 import Cart from "./Pages/Cart";
@@ -13,6 +12,7 @@ import Login from "./Pages/login";
 import Signup from "./Pages/Signup";
 import { Toaster } from "react-hot-toast";
 import Footer from "./components/Footer";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
   const location = useLocation();
@@ -29,20 +29,44 @@ function App() {
       <AuthProvider>
         {!hideNavbar && <Navbar />}
         <Routes>
+          {/* Public Routes */}
           <Route path="/" element={<Home />} />
-          <Route path="/cart" element={<Cart />} />
-          <Route path="/profile" element={<Profile />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
 
-          {/* Dashboard routes */}
-          <Route path="/admin" element={<Dashboard />}>
+          {/* Protected Routes (any logged-in user) */}
+          <Route
+            path="/cart"
+            element={
+              <ProtectedRoute>
+                <Cart />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/profile"
+            element={
+              <ProtectedRoute>
+                <Profile />
+              </ProtectedRoute>
+            }
+          />
+
+          {/* Admin Protected Routes */}
+          <Route
+            path="/admin"
+            element={
+              <ProtectedRoute role="admin">
+                <Dashboard />
+              </ProtectedRoute>
+            }
+          >
             <Route path="users" element={<DashUser />} />
             <Route path="products" element={<DashProduct />} />
             <Route path="orders" element={<DashOrder />} />
           </Route>
         </Routes>
-        {!hideNavbar && <Footer/>}
+        {!hideNavbar && <Footer />}
       </AuthProvider>
     </div>
   );
